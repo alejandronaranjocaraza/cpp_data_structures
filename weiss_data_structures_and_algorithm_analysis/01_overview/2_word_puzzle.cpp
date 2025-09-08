@@ -2,7 +2,7 @@
 // Word puzzle: The input consists of a twodimensional array of letters and a list of words. The object is to find the words in the puzzle.
 // These words may be horizontal, vertical, or diagonal in any direction. As an example, the
 // puzzle shown in Figure 1.1 contains the words this, two, fat, and that. The word this begins
-// at row 1, column 1, or (1,1), and extends to (1,4); two goes from (1,1) to (3,1); fat goes
+// at row 1, col 1, or (1,1), and extends to (1,4); two goes from (1,1) to (3,1); fat goes
 // from (4,1) to (2,3); and that goes from (4,4) to (1,1).
 //
 
@@ -71,14 +71,16 @@ string searchWord(matrix<string> mat ,string word) {
         if (i-shift >= 0 && j+shift < n) extractedRU+= mat[i-shift][j+shift];
         if (i-shift >= 0 && j-shift >= 0) extractedLU+= mat[i-shift][j-shift];
       };
-      if (word==extractedR) {return to_string(i)+","+to_string(j)+": Right";}
-      if (word==extractedU) {return to_string(i)+","+to_string(j)+": Up";}
-      if (word==extractedL) {return to_string(i)+","+to_string(j)+": Left";}
-      if (word==extractedD) {return to_string(i)+","+to_string(j)+": Down";}
-      if (word==extractedRU) {return to_string(i)+","+to_string(j)+": Right Up";}
-      if (word==extractedLU) {return to_string(i)+","+to_string(j)+": Left Up";}
-      if (word==extractedRD) {return to_string(i)+","+to_string(j)+": Right Down";}
-      if (word==extractedLD) {return to_string(i)+","+to_string(j)+": Left Down";}
+      int ind = i + 1;
+      int col = j + 1;
+      if (word==extractedR) {return to_string(ind)+","+to_string(col)+": Right";}
+      if (word==extractedU) {return to_string(ind)+","+to_string(col)+": Up";}
+      if (word==extractedL) {return to_string(ind)+","+to_string(col)+": Left";}
+      if (word==extractedD) {return to_string(ind)+","+to_string(col)+": Down";}
+      if (word==extractedRU) {return to_string(ind)+","+to_string(col)+": Right Up";}
+      if (word==extractedLU) {return to_string(ind)+","+to_string(col)+": Left Up";}
+      if (word==extractedRD) {return to_string(ind)+","+to_string(col)+": Right Down";}
+      if (word==extractedLD) {return to_string(ind)+","+to_string(col)+": Left Down";}
     }
   }
   return "Not Found";
