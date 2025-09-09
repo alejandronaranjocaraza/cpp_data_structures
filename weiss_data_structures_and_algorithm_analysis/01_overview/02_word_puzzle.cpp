@@ -1,5 +1,7 @@
 //
-// Word puzzle: The input consists of a twodimensional array of letters and a list of words. The object is to find the words in the puzzle.
+// 2. Word puzzle
+// The input consists of a twodimensional array of letters and a list of words.
+// The object is to find the words in the puzzle.
 // These words may be horizontal, vertical, or diagonal in any direction. As an example, the
 // puzzle shown in Figure 1.1 contains the words this, two, fat, and that. The word this begins
 // at row 1, col 1, or (1,1), and extends to (1,4); two goes from (1,1) to (3,1); fat goes
