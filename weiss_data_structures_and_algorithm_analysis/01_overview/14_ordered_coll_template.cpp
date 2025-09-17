@@ -1,3 +1,13 @@
+//
+//14. Design a class template, OrderedCollection,
+//that stores a collection of Comparables (in an array),
+//along with the current size of the collection. Provide public functions isEmpty, makeEmpty,
+//insert, remove, findMin, and findMax.
+//findMin and findMax return references to the smallest and largest, respectively,
+//Comparable in the collection.
+//Explain what can be done if these operations are performed on an empty collection.
+//
+
 #include <iostream>
 using namespace std;
 
