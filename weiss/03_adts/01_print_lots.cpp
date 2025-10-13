@@ -1,6 +1,17 @@
+//
+//1. You are given a list, L, and another list, P, containing integers sorted in ascending
+//order. The operation printLots(L,P) will print the elements in L that are in positions
+//specified by P. For instance, if P = 1, 3, 4, 6, the elements in positions 1, 3, 4, and 6
+//in L are printed. Write the procedure printLots(L,P). You may use only the public
+//STL container operations. What is the running time of your procedure?
+//
+
+
 #include <iostream>
 #include <utility>
-using namespace std;
+
+template <typename Object>
+class List;
 
 template <typename Object>
 class Node {
@@ -36,6 +47,15 @@ public:
     ++(*this);
     return old;
   }
+  const_iterator& operator--() {
+    current = current->prev;
+    return *this;
+  }
+  const_iterator operator--(int) {
+    const_iterator old = *this;
+    --(*this);
+    return old;
+  }
   bool operator==(const const_iterator& rhs) const {
     return (current == rhs.current);
   }
@@ -58,10 +78,10 @@ class iterator : public const_iterator<Object> {
 public:
   iterator() {}
   Object& operator*() {
-    return const_iterator::retrieve();
+    return const_iterator<Object>::retrieve();
   }
   const Object& operator*() const {
-    return const_iterator::operator*();
+    return const_iterator<Object>::operator*();
   }
   iterator& operator++() {
     this->current = this->current->next;
@@ -72,8 +92,17 @@ public:
     ++(*this);
     return old;
   }
+  iterator& operator--() {
+    this->current = this->current->prev;
+    return *this;
+  }
+  iterator operator--(int) {
+    iterator old = *this;
+    --(*this);
+    return old;
+  }
 protected:
-  iterator(Node<Object>* p) : const_iterator{p} {}
+  iterator(Node<Object>* p) : const_iterator<Object>{p} {}
   friend class List<Object>;
 };
 
@@ -111,16 +140,16 @@ public:
     std::swap(tail, rhs.tail);
     return *this;
   }
-  iterator begin() {
+  iterator<Object> begin() {
     return head->next;//!!!!!!!!!!!!!!!!
   }
-  const_iterator begin() const {
+  const_iterator<Object> begin() const {
     return head->next;//!!!!!!!!!!!!!!!1
   }
-  iterator end() {
+  iterator<Object> end() {
     return tail;
   }
-  const_iterator end() const {
+  const_iterator<Object> end() const {
     return tail;
   }
   int size() const {
@@ -163,17 +192,17 @@ public:
   void pop_back() {
     erase(--end());
   }
-  iterator insert(iterator itr, const Object& x) {
+  iterator<Object> insert(iterator<Object> itr, const Object& x) {
     Node<Object>* p = itr.current;
     theSize++;
     return {p->prev = p->prev->next = new Node<Object>{ x, p->prev, p}};
   }
-  iterator insert(iterator itr, Object&& x) {
+  iterator<Object> insert(iterator<Object> itr, Object&& x) {
     Node<Object>* p = itr.current;
     theSize++;
     return {p->prev = p->prev->next = new Node<Object>{std::move(x), p->prev, p}};
   }
-  iterator erase(iterator itr) {
+  iterator<Object> erase(iterator<Object> itr) {
     Node<Object>* p = itr.current;
     iterator retVal{p->next};
     p->prev->next = p->next;
@@ -182,7 +211,7 @@ public:
     --theSize;
     return retVal;
   }
-  iterator erase(iterator from, iterator to) {
+  iterator<Object> erase(iterator<Object> from, iterator<Object> to) {
     for(iterator itr = from; itr!=to;)
       itr = erase(itr);
     return to;
@@ -203,9 +232,25 @@ private:
   }
 };
 
+void printLots(const List<int>& L,const List<int>& P) {
+  for(auto iterP = P.begin(); iterP != P.end(); iterP++) {
+    int pos = *iterP;
+    auto iterL = L.begin();
+    for(int p = 0; p < pos; p++) {
+      iterL++;
+    }
+    std::cout << *iterL;
+  }
+}
+
 int main() {
-    List<int> lst;
-    lst.push_back(10);
-    lst.push_front(5);
-    cout << lst.front() << " " << lst.back() << "\n";
+    List<int> L;
+    L.push_back(11);
+    L.push_back(33);
+    L.push_back(55);
+    L.push_back(77);
+    List<int> P;
+    P.push_back(1);
+    P.push_back(3);
+    printLots(L,P);
 }
