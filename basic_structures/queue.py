@@ -1,4 +1,4 @@
-class queue:
+class Queue:
     def __init__(self):
         self.data = []
 
@@ -25,7 +25,7 @@ class queue:
         return res
 
 
-q = queue()
+q = Queue()
 q.enqueue(2)
 q.enqueue(3)
 print(q.dequeue())
